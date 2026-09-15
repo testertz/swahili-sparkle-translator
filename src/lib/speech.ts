@@ -27,7 +27,7 @@ export function speak(text: string, lang: Lang, rate = 1) {
   if (!speechSupported() || !text.trim()) return false;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = LOCALES[lang][0];
+  utterance.lang = LOCALES[lang][0] ?? lang;
   utterance.rate = rate;
   const voice = pickVoice(lang);
   if (voice) utterance.voice = voice;
@@ -59,7 +59,7 @@ export function getRecognition(lang: Lang) {
   const Ctor = w.SpeechRecognition ?? w.webkitSpeechRecognition;
   if (!Ctor) return null;
   const recognition = new Ctor();
-  recognition.lang = LOCALES[lang][0];
+  recognition.lang = LOCALES[lang][0] ?? lang;
   recognition.interimResults = true;
   recognition.continuous = false;
   return recognition;

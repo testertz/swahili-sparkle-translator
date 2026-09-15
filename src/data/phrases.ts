@@ -1,0 +1,120 @@
+export type Phrase = { en: string; sw: string };
+export type PhraseCategory = { id: string; label: string; phrases: Phrase[] };
+
+export const phraseCategories: PhraseCategory[] = [
+  {
+    id: "greetings",
+    label: "Greetings",
+    phrases: [
+      { en: "Hello", sw: "Habari" },
+      { en: "Good morning", sw: "Habari ya asubuhi" },
+      { en: "Good evening", sw: "Habari ya jioni" },
+      { en: "How are you?", sw: "Habari yako?" },
+      { en: "I am fine, thank you", sw: "Nzuri, asante" },
+      { en: "What is your name?", sw: "Jina lako ni nani?" },
+      { en: "My name is\u2026", sw: "Jina langu ni\u2026" },
+      { en: "Nice to meet you", sw: "Nimefurahi kukutana nawe" },
+      { en: "Goodbye", sw: "Kwaheri" },
+      { en: "See you later", sw: "Tutaonana baadaye" },
+    ],
+  },
+  {
+    id: "travel",
+    label: "Travel",
+    phrases: [
+      { en: "Where is the bus station?", sw: "Kituo cha basi kiko wapi?" },
+      { en: "How much is the ticket?", sw: "Tiketi ni bei gani?" },
+      { en: "I want to go to the airport", sw: "Nataka kwenda uwanja wa ndege" },
+      { en: "Is it far from here?", sw: "Ni mbali kutoka hapa?" },
+      { en: "Please stop here", sw: "Tafadhali simama hapa" },
+      { en: "Safe journey", sw: "Safari njema" },
+      { en: "I am a visitor here", sw: "Mimi ni mgeni hapa" },
+    ],
+  },
+  {
+    id: "business",
+    label: "Business",
+    phrases: [
+      { en: "Good morning, how may I help you?", sw: "Habari ya asubuhi, nikusaidie nini?" },
+      { en: "Let us schedule a meeting", sw: "Tupange mkutano" },
+      { en: "Please send me the invoice", sw: "Tafadhali nitumie ankara" },
+      { en: "I will get back to you", sw: "Nitakujibu baadaye" },
+      { en: "Thank you for your time", sw: "Asante kwa muda wako" },
+      { en: "We agree with the terms", sw: "Tunakubaliana na masharti" },
+    ],
+  },
+  {
+    id: "shopping",
+    label: "Shopping",
+    phrases: [
+      { en: "How much is this?", sw: "Hii ni bei gani?" },
+      { en: "That is too expensive", sw: "Hiyo ni ghali sana" },
+      { en: "Can you lower the price?", sw: "Unaweza kupunguza bei?" },
+      { en: "I am just looking", sw: "Naangalia tu" },
+      { en: "I will take this one", sw: "Nitachukua hii" },
+      { en: "Do you accept mobile money?", sw: "Mnapokea pesa za simu?" },
+    ],
+  },
+  {
+    id: "restaurants",
+    label: "Restaurants",
+    phrases: [
+      { en: "A table for two, please", sw: "Meza ya watu wawili, tafadhali" },
+      { en: "May I see the menu?", sw: "Naweza kuona menyu?" },
+      { en: "I would like some water", sw: "Ningependa maji" },
+      { en: "The food is delicious", sw: "Chakula ni kitamu" },
+      { en: "Not too spicy, please", sw: "Isiwe na pilipili nyingi, tafadhali" },
+      { en: "The bill, please", sw: "Bili, tafadhali" },
+    ],
+  },
+  {
+    id: "directions",
+    label: "Directions",
+    phrases: [
+      { en: "Excuse me, where is\u2026?", sw: "Samahani, \u2026 iko wapi?" },
+      { en: "Turn left", sw: "Geuka kushoto" },
+      { en: "Turn right", sw: "Geuka kulia" },
+      { en: "Go straight ahead", sw: "Nenda moja kwa moja" },
+      { en: "It is near here", sw: "Iko karibu na hapa" },
+      { en: "I am lost", sw: "Nimepotea" },
+    ],
+  },
+  {
+    id: "school",
+    label: "School",
+    phrases: [
+      { en: "I am a student", sw: "Mimi ni mwanafunzi" },
+      { en: "What is the homework?", sw: "Kazi ya nyumbani ni ipi?" },
+      { en: "Please repeat that", sw: "Tafadhali rudia hilo" },
+      { en: "I do not understand", sw: "Sielewi" },
+      { en: "May I ask a question?", sw: "Naomba kuuliza swali?" },
+      { en: "The exam is next week", sw: "Mtihani ni wiki ijayo" },
+    ],
+  },
+  {
+    id: "work",
+    label: "Work",
+    phrases: [
+      { en: "I am going to work", sw: "Ninaenda kazini" },
+      { en: "I will be a little late", sw: "Nitachelewa kidogo" },
+      { en: "Can we talk this afternoon?", sw: "Tunaweza kuongea mchana huu?" },
+      { en: "The work is finished", sw: "Kazi imekamilika" },
+      { en: "I need help with this task", sw: "Nahitaji msaada kwenye kazi hii" },
+      { en: "Well done", sw: "Hongera" },
+    ],
+  },
+  {
+    id: "everyday",
+    label: "Everyday conversation",
+    phrases: [
+      { en: "Yes / No", sw: "Ndiyo / Hapana" },
+      { en: "Please", sw: "Tafadhali" },
+      { en: "Thank you very much", sw: "Asante sana" },
+      { en: "You are welcome", sw: "Karibu" },
+      { en: "No problem", sw: "Hakuna shida" },
+      { en: "I do not speak much Swahili", sw: "Sizungumzi Kiswahili sana" },
+      { en: "Do you speak English?", sw: "Unazungumza Kiingereza?" },
+      { en: "Slowly, please", sw: "Polepole, tafadhali" },
+    ],
+  },
+];

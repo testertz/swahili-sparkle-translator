@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DictionaryRouteImport } from './routes/dictionary'
+import { Route as LearnRouteImport } from './routes/learn'
+import { Route as PhrasesRouteImport } from './routes/phrases'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DictionaryRoute = DictionaryRouteImport.update({
+  id: '/dictionary',
+  path: '/dictionary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhrasesRoute = PhrasesRouteImport.update({
+  id: '/phrases',
+  path: '/phrases',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dictionary': typeof DictionaryRoute
+  '/learn': typeof LearnRoute
+  '/phrases': typeof PhrasesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dictionary': typeof DictionaryRoute
+  '/learn': typeof LearnRoute
+  '/phrases': typeof PhrasesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dictionary': typeof DictionaryRoute
+  '/learn': typeof LearnRoute
+  '/phrases': typeof PhrasesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/dictionary' | '/learn' | '/phrases'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/dictionary' | '/learn' | '/phrases'
+  id: '__root__' | '/' | '/dictionary' | '/learn' | '/phrases'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DictionaryRoute: typeof DictionaryRoute
+  LearnRoute: typeof LearnRoute
+  PhrasesRoute: typeof PhrasesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dictionary': {
+      id: '/dictionary'
+      path: '/dictionary'
+      fullPath: '/dictionary'
+      preLoaderRoute: typeof DictionaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phrases': {
+      id: '/phrases'
+      path: '/phrases'
+      fullPath: '/phrases'
+      preLoaderRoute: typeof PhrasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DictionaryRoute: DictionaryRoute,
+  LearnRoute: LearnRoute,
+  PhrasesRoute: PhrasesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

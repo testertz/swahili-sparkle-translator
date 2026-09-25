@@ -63,44 +63,48 @@ export function putCache(key: string, value: unknown) {
   cache.set(key, { value, at: Date.now() });
 }
 
+const GEMINI_MODEL = "gemini-2.5-flash";
+
 async function callGateway(system: string, user: string, attempt = 0): Promise<string> {
-  const apiKey = process.env["LOVABLE_API_KEY"];
+  const apiKey = process.env["GEMINI_API_KEY"];
   if (!apiKey) throw new TranslationError("missing key", "unavailable");
 
-  const response = await fetch(GATEWAY_URL, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: MODEL,
-      reasoning_effort: "low",
-      max_completion_tokens: 2000,
-      response_format: { type: "json_object" },
-      messages: [
-        { role: "system", content: system },
-        { role: "user", content: user },
-      ],
-    }),
-  });
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
+    {
+      method: "POST",
+      headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: system }] },
+        contents: [{ role: "user", parts: [{ text: user }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          temperature: 0.3,
+          thinkingConfig: { thinkingBudget: 0 },
+        },
+      }),
+    },
+  );
 
   if (response.status === 429) throw new TranslationError("rate limited", "rate_limit");
-  if (response.status === 402 || response.status === 403)
+  if (response.status === 401 || response.status === 403)
     throw new TranslationError("blocked", "unavailable");
   if (response.status >= 500) {
     if (attempt < 1) {
-      await new Promise((r) => setTimeout(r, 600));
+      await new Promise((r) => setTimeout(r, 800));
       return callGateway(system, user, attempt + 1);
     }
     throw new TranslationError("upstream", "unavailable");
   }
   if (!response.ok) {
-    console.error("gateway error", response.status, await response.text().catch(() => ""));
+    console.error("gemini error", response.status, await response.text().catch(() => ""));
     throw new TranslationError("bad request", "invalid");
   }
 
   const payload = (await response.json()) as {
-    choices?: Array<{ message?: { content?: string } }>;
+    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
   };
-  const content = payload.choices?.[0]?.message?.content;
+  const content = payload.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("");
   if (!content) throw new TranslationError("empty", "unavailable");
   return content;
 }
